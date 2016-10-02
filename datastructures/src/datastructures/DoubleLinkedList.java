@@ -1,8 +1,11 @@
 package datastructures;
 
-import java.util.Iterator;
 
-public class DoubleLinkedList<T> implements Iterable<T>, Iterator<T>
+/*
+ * A simple Double Linked List
+ */
+
+public class DoubleLinkedList<T>
 {
 	private Node<T>		root;
 	
@@ -19,6 +22,35 @@ public class DoubleLinkedList<T> implements Iterable<T>, Iterator<T>
 			counter++;
 		
 		return counter;
+	}
+	
+	public void insertBefore( T value, int i )
+	{
+		Node<T> target = find( i );
+		
+		Node<T> newNode = new Node<T>( value );
+		
+		target.getPrev().setNext( newNode );
+		newNode.setPrev( target.getPrev() );
+		
+		newNode.setNext( target );
+		target.setPrev( newNode );
+	}
+	
+	public T delete( int i )
+	{
+		Node<T> target = find( i );
+		
+		if( target == null )
+			return null;
+		
+		target.getPrev().setNext( target.getNext() );
+		target.getNext().setPrev( target.getPrev() );
+		
+		target.setNext( null );
+		target.setPrev( null );
+		
+		return target.value;
 	}
 	
 	public void append( T value )
@@ -39,11 +71,6 @@ public class DoubleLinkedList<T> implements Iterable<T>, Iterator<T>
 		}
 	}
 	
-	public Node<T> delete( int i )
-	{
-		return null;
-	}
-	
 	public T get( int i )
 	{
 		Node<T> node = find( i );
@@ -58,11 +85,11 @@ public class DoubleLinkedList<T> implements Iterable<T>, Iterator<T>
 		if( root == null )
 			return null;
 		
-		int counter = 1;
+		int counter = 0;
 		
 		Node<T> target = root;
 		
-		while( counter < i || target == null ) 
+		while( counter < i && target != null ) 
 		{
 			target = target.getNext();
 			counter++;
@@ -73,25 +100,7 @@ public class DoubleLinkedList<T> implements Iterable<T>, Iterator<T>
 	
 	private Node<T> findEnd( )
 	{	
-		return find( getSize() );
-	}
-
-	@Override
-	public Iterator<T> iterator() 
-	{
-		return this;
-	}
-
-	@Override
-	public boolean hasNext() 
-	{
-		return false;
-	}
-
-	@Override
-	public T next() 
-	{
-		return null;
+		return find( getSize()-1 );
 	}
 }
 
