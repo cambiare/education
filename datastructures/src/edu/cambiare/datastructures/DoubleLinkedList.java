@@ -1,4 +1,4 @@
-package datastructures;
+package edu.cambiare.datastructures;
 
 
 /*
