@@ -1,4 +1,4 @@
-package edu.cambiare.datastructures.test;
+package edu.cambiare.sorting;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
