@@ -46,7 +46,7 @@ public class ArraySort
 			{
 				swap( inputArray, i, j );
 				
-				for( int bi=i-k, bj=j-k; bi > 0; bi-=k, bj-=k )
+				for( int bi=i-k, bj=j-k; bi >= 0; bi-=k, bj-=k )
 				{
 					if( inputArray[bi].compareTo( inputArray[bj] ) > 0 )
 					{

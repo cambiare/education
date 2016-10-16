@@ -1,8 +1,10 @@
 package edu.cambiare.sorting;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import java.util.Arrays;
 
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 import edu.cambiare.sorting.ArraySort;
 
 public class ArraySortTest 
@@ -12,13 +14,16 @@ public class ArraySortTest
 	{
 		System.out.println( "bubbleSort");
 
-		Integer[] inputArray = makeRandomArray( 10 );
-		ArraySort.printArray( inputArray );
-		ArraySort.bubbleSort( inputArray );
-		ArraySort.printArray( inputArray );
-		System.out.println();
-		
-		assertTrue( ArraySort.checkSorted(inputArray) );
+		for( int i=0; i < 100; i++ )
+		{
+			Integer[] inputArray = makeRandomArray( 10000 );
+			//ArraySort.printArray( inputArray );
+			ArraySort.bubbleSort( inputArray );
+			//ArraySort.printArray( inputArray );
+			//System.out.println();
+			
+			assertTrue( ArraySort.checkSorted(inputArray) );
+		}
 	}
 	
 	@Test
@@ -26,13 +31,16 @@ public class ArraySortTest
 	{
 		System.out.println( "quickSort");
 
-		Integer[] inputArray = makeRandomArray( 1000000 );
-		//ArraySort.printArray( inputArray );
-		ArraySort.quickSort( inputArray, 0, inputArray.length-1 );
-		//ArraySort.printArray( inputArray );
-		System.out.println();
-		
-		assertTrue( ArraySort.checkSorted(inputArray) );
+		for( int i=0; i < 100; i++ )
+		{
+			Integer[] inputArray = makeRandomArray( 10000 );
+			//ArraySort.printArray( inputArray );
+			ArraySort.quickSort( inputArray, 0, inputArray.length-1 );
+			//ArraySort.printArray( inputArray );
+			//System.out.println();
+			
+			assertTrue( ArraySort.checkSorted(inputArray) );
+		}
 	}
 	
 	@Test
@@ -40,13 +48,16 @@ public class ArraySortTest
 	{
 		System.out.println( "selectionSort");
 
-		Integer[] inputArray = makeRandomArray( 10 );
-		ArraySort.printArray( inputArray );
-		ArraySort.selectionSort( inputArray );
-		ArraySort.printArray( inputArray );
-		System.out.println();
+		for( int i=0; i < 100; i++ )
+		{
+			Integer[] inputArray = makeRandomArray( 10000 );
+			//ArraySort.printArray( inputArray );
+			ArraySort.selectionSort( inputArray );
+			//ArraySort.printArray( inputArray );
+			//System.out.println();
 		
-		assertTrue( ArraySort.checkSorted(inputArray) );
+			assertTrue( ArraySort.checkSorted(inputArray) );
+		}
 	}
 	
 	@Test
@@ -54,13 +65,25 @@ public class ArraySortTest
 	{
 		System.out.println( "shellSort");
 		
-		Integer[] inputArray = makeRandomArray( 10 );
-		ArraySort.printArray( inputArray );
-		ArraySort.shellSort( inputArray, inputArray.length/2 );
-		ArraySort.printArray( inputArray );
-		System.out.println();
-		
-		//assertTrue( ArraySort.checkSorted(inputArray) );
+		for( int i=0; i < 100; i++ )
+		{
+			Integer[] inputArray = makeRandomArray( 10000 );
+			Integer[] copy = Arrays.copyOf( inputArray, inputArray.length );
+			//ArraySort.printArray( inputArray );
+			ArraySort.shellSort( inputArray, inputArray.length/2 );
+			//ArraySort.printArray( inputArray );
+			//System.out.println();
+			
+			boolean sorted = ArraySort.checkSorted(inputArray);
+			if( !sorted )
+			{
+				System.out.println( "FAILED: ");
+				ArraySort.printArray( copy );
+				ArraySort.printArray( inputArray );
+				System.out.println();
+			}
+			assertTrue( sorted );
+		}
 	}
 	
 	private Integer[] makeRandomArray( int length )
