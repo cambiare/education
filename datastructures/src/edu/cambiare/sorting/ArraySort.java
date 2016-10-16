@@ -66,9 +66,6 @@ public class ArraySort
 			}
 		}
 		
-		System.out.print("k[" + k +"]: " );
-		printArray( inputArray );
-		
 		shellSort( inputArray, k/2 );
 		
 	}
