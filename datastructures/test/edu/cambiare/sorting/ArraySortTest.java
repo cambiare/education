@@ -16,7 +16,7 @@ public class ArraySortTest
 
 		for( int i=0; i < 100; i++ )
 		{
-			Integer[] inputArray = makeRandomArray( 10000 );
+			Integer[] inputArray = makeRandomArray( 10 );
 			//ArraySort.printArray( inputArray );
 			ArraySort.bubbleSort( inputArray );
 			//ArraySort.printArray( inputArray );
@@ -31,9 +31,9 @@ public class ArraySortTest
 	{
 		System.out.println( "quickSort");
 
-		for( int i=0; i < 100; i++ )
+		for( int i=0; i < 1000; i++ )
 		{
-			Integer[] inputArray = makeRandomArray( 10000 );
+			Integer[] inputArray = makeRandomArray( 1000 );
 			//ArraySort.printArray( inputArray );
 			ArraySort.quickSort( inputArray, 0, inputArray.length-1 );
 			//ArraySort.printArray( inputArray );
@@ -50,7 +50,7 @@ public class ArraySortTest
 
 		for( int i=0; i < 100; i++ )
 		{
-			Integer[] inputArray = makeRandomArray( 10000 );
+			Integer[] inputArray = makeRandomArray( 10 );
 			//ArraySort.printArray( inputArray );
 			ArraySort.selectionSort( inputArray );
 			//ArraySort.printArray( inputArray );
@@ -65,9 +65,9 @@ public class ArraySortTest
 	{
 		System.out.println( "shellSort");
 		
-		for( int i=0; i < 100; i++ )
+		for( int i=0; i < 1000; i++ )
 		{
-			Integer[] inputArray = makeRandomArray( 10000 );
+			Integer[] inputArray = makeRandomArray( 1000 );
 			Integer[] copy = Arrays.copyOf( inputArray, inputArray.length );
 			//ArraySort.printArray( inputArray );
 			ArraySort.shellSort( inputArray, inputArray.length/2 );
@@ -83,6 +83,40 @@ public class ArraySortTest
 				System.out.println();
 			}
 			assertTrue( sorted );
+		}
+	}
+	
+	@Test
+	public void testInsertionSort( )
+	{
+		System.out.println( "insertionSort");
+
+		for( int i=0; i < 100; i++ )
+		{
+			Integer[] inputArray = makeRandomArray( 100 );
+			//ArraySort.printArray( inputArray );
+			ArraySort.insertionSort( inputArray );
+			//ArraySort.printArray( inputArray );
+			//System.out.println();
+		
+			assertTrue( ArraySort.checkSorted(inputArray) );
+		}
+	}
+	
+	@Test
+	public void testTreeSort( )
+	{
+		System.out.println( "treeSort");
+
+		for( int i=0; i < 1000; i++ )
+		{
+			Integer[] inputArray = makeRandomArray( 1000 );
+			//ArraySort.printArray( inputArray );
+			ArraySort.treeSort( inputArray );
+			//ArraySort.printArray( inputArray );
+			//System.out.println();
+		
+			assertTrue( ArraySort.checkSorted(inputArray) );
 		}
 	}
 	

@@ -1,5 +1,10 @@
 package edu.cambiare.sorting;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 public class ArraySort 
 {
 	public static <T extends Comparable<T>> void bubbleSort( T[] inputArray )
@@ -80,7 +85,6 @@ public class ArraySort
 		i++;
 		wall = i;
 		
-		
 		for( ; i <= j; i++ )
 		{
 			if( inputArray[i].compareTo( pivotValue ) < 0 )
@@ -94,6 +98,48 @@ public class ArraySort
 		
 		quickSort( inputArray, pivot, wall-1 );
 		quickSort( inputArray, wall, j );
+	}
+	
+	public static <T extends Comparable<T>> void insertionSort( T[] inputArray )
+	{
+		for( int i=0; i < inputArray.length; i++ )
+		{
+			for( int j=i; j > 0; j-- )
+			{
+				if( inputArray[j].compareTo( inputArray[j-1] ) < 0 )
+				{
+					swap( inputArray, j, j-1 );
+				}
+			}
+		}
+	}
+	
+	public static <T extends Comparable<T>> void treeSort( T[] inputArray )
+	{
+		TreeMap<T, List<T>> tree = new TreeMap<T, List<T>>();
+		
+		for( T value : inputArray )
+		{
+			List<T> valueList = tree.get( value );
+			if( valueList == null )
+			{
+				valueList = new ArrayList<T>();
+				tree.put( value, valueList );
+			}
+			valueList.add( value );
+		}
+		
+		int i=0;
+		for( Map.Entry<T, List<T>> entry : tree.entrySet() )
+		{
+			List<T> valueList = entry.getValue();
+			for( T value : valueList )
+			{
+				inputArray[i] = value;
+				i++;
+			}
+			
+		}
 	}
 	
 	private static <T> void swap( T[] inputArray, int i, int j )
