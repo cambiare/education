@@ -10,9 +10,7 @@ public class ArraySort
 			{
 				if( inputArray[j].compareTo( inputArray[j+1] ) > 0 )
 				{
-					T temp = inputArray[j];
-					inputArray[j] = inputArray[j+1];
-					inputArray[j+1] = temp;
+					swap( inputArray, j, j+1 );
 				}
 			}
 		}
@@ -31,9 +29,7 @@ public class ArraySort
 				}
 			}
 			
-			T temp = inputArray[minValLocation];
-			inputArray[minValLocation] = inputArray[i];
-			inputArray[i] = temp;
+			swap( inputArray, i, minValLocation );
 		}
 	}
 	
@@ -48,17 +44,13 @@ public class ArraySort
 		{
 			if( inputArray[i].compareTo( inputArray[j] ) > 0 )
 			{
-				T temp = inputArray[j];
-				inputArray[j] = inputArray[i];
-				inputArray[i] = temp;
+				swap( inputArray, i, j );
 				
 				for( int bi=i-k, bj=j-k; bi > 0; bi-=k, bj-=k )
 				{
 					if( inputArray[bi].compareTo( inputArray[bj] ) > 0 )
 					{
-						T btemp = inputArray[bj];
-						inputArray[bj] = inputArray[bi];
-						inputArray[bi] = btemp;
+						swap( inputArray, bi, bj );
 					} else {
 						break;
 					}
@@ -67,7 +59,48 @@ public class ArraySort
 		}
 		
 		shellSort( inputArray, k/2 );
+	}
+	
+	public static <T extends Comparable<T>> void quickSort( T[] inputArray, int i, int j )
+	{
+		int wall;
+		int pivot;
 		
+		if( j-i < 1 )
+		{
+			return;
+		}
+		
+		// randomize the pivot
+		pivot = new Double(Math.floor(Math.random() * (j-i))).intValue() + i;
+		swap( inputArray, i, pivot );
+		
+		T pivotValue = inputArray[i];
+		pivot = i;
+		i++;
+		wall = i;
+		
+		
+		for( ; i <= j; i++ )
+		{
+			if( inputArray[i].compareTo( pivotValue ) < 0 )
+			{
+				swap( inputArray, i, wall );
+				wall++;
+			}
+		}
+		
+		swap( inputArray, pivot, wall-1 );
+		
+		quickSort( inputArray, pivot, wall-1 );
+		quickSort( inputArray, wall, j );
+	}
+	
+	private static <T> void swap( T[] inputArray, int i, int j )
+	{
+		T temp = inputArray[i];
+		inputArray[i] = inputArray[j];
+		inputArray[j] = temp;
 	}
 	
 	public static <T extends Comparable<T>> boolean checkSorted( T[] inputArray )
