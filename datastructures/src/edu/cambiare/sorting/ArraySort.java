@@ -2,7 +2,7 @@ package edu.cambiare.sorting;
 
 public class ArraySort 
 {
-	public static void bubbleSort( Comparable[] inputArray )
+	public static <T extends Comparable<T>> void bubbleSort( T[] inputArray )
 	{
 		for( int i=0; i < inputArray.length; i++ )
 		{
@@ -10,17 +10,15 @@ public class ArraySort
 			{
 				if( inputArray[j].compareTo( inputArray[j+1] ) > 0 )
 				{
-					Comparable temp = inputArray[j];
+					T temp = inputArray[j];
 					inputArray[j] = inputArray[j+1];
 					inputArray[j+1] = temp;
 				}
 			}
-			System.out.print( i + ": " );
-			printArray( inputArray );
 		}
 	}
 	
-	public static void selectionSort( Comparable[] inputArray )
+	public static <T extends Comparable<T>> void selectionSort( T[] inputArray )
 	{
 		for( int i=0; i < inputArray.length; i++ )
 		{
@@ -33,12 +31,60 @@ public class ArraySort
 				}
 			}
 			
-			Comparable temp = inputArray[minValLocation];
+			T temp = inputArray[minValLocation];
 			inputArray[minValLocation] = inputArray[i];
 			inputArray[i] = temp;
-			
-			printArray( inputArray );
 		}
+	}
+	
+	public static <T extends Comparable<T>> void shellSort( T[] inputArray, int k )
+	{	
+		if( k < 1 )
+		{
+			return;
+		}
+		
+		for( int i=0, j=k; j < inputArray.length; i++, j++ )
+		{
+			if( inputArray[i].compareTo( inputArray[j] ) > 0 )
+			{
+				T temp = inputArray[j];
+				inputArray[j] = inputArray[i];
+				inputArray[i] = temp;
+				
+				for( int bi=i-k, bj=j-k; bi > 0; bi-=k, bj-=k )
+				{
+					if( inputArray[bi].compareTo( inputArray[bj] ) > 0 )
+					{
+						T btemp = inputArray[bj];
+						inputArray[bj] = inputArray[bi];
+						inputArray[bi] = btemp;
+					} else {
+						break;
+					}
+				}
+			}
+		}
+		
+		System.out.print("k[" + k +"]: " );
+		printArray( inputArray );
+		
+		shellSort( inputArray, k/2 );
+		
+	}
+	
+	public static <T extends Comparable<T>> boolean checkSorted( T[] inputArray )
+	{
+		
+		for( int i=0; i < inputArray.length-1; i++ )
+		{
+			if( inputArray[i].compareTo( inputArray[i+1] ) > 0 )
+			{
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	public static void printArray( Object[] arr )
